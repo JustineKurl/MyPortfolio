@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Navbar from './components/Navbar';
+import Home from './components/Home';
+import About from './components/About';
+import Journal from './components/Journal';
+import Gallery from './components/Gallery';
+import Certificates from './components/Certificates';
+import Footer from './components/Footer';
 
 function App() {
+  const [currentPage, setCurrentPage] = useState('home');
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={`min-h-screen transition-colors duration-500 ${
+      isDarkMode ? 'bg-black text-white' : 'bg-white text-black'
+    }`}>
+      <Navbar 
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        isDarkMode={isDarkMode}
+        setIsDarkMode={setIsDarkMode}
+      />
+      
+      <div className="pt-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        {currentPage === 'home' && <Home isDarkMode={isDarkMode} />}
+        {currentPage === 'about' && <About isDarkMode={isDarkMode} />}
+        {currentPage === 'journal' && <Journal isDarkMode={isDarkMode} />}
+        {currentPage === 'gallery' && <Gallery isDarkMode={isDarkMode} />}
+        {currentPage === 'certificates' && <Certificates isDarkMode={isDarkMode} />}
+      </div>
+
+      <Footer isDarkMode={isDarkMode} />
     </div>
   );
 }
